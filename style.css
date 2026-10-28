@@ -1,0 +1,206 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+.font-serif {
+    font-family: 'Playfair Display', serif;
+}
+
+.font-wedding {
+    font-family: 'Great Vibes', cursive;
+}
+
+/*1. COVER OVERLAY & AMPLOP 3D */
+.cover-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #2b2b2b 0%, #121212 100%);
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+    overflow: hidden;
+}
+
+.cover-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* ANIMASI KELOPAK BUNGA JATUH */
+.petals-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.petal {
+    position: absolute;
+    top: -30px;
+    opacity: 0.8;
+    pointer-events: none;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        top: -30px;
+        transform: translateX(0) rotate(0deg);
+        opacity: 0.9;
+    }
+    100% {
+        top: 105vh;
+        transform: translateX(120px) rotate(360deg);
+        opacity: 0.2;
+    }
+}
+
+.envelope-wrapper {
+    perspective: 1000px;
+    margin-top: 40px;
+    z-index: 5;
+}
+
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    background: #e0d5c1;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Kartu Surat Menonjol Ke Atas */
+.letter-card {
+    position: absolute;
+    width: 90%;
+    height: 85%;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #d4af37;
+    outline: 3px solid #ffffff;
+    outline-offset: -6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transform: translateY(-65px);
+    z-index: 3;
+    transition: transform 0.8s ease-in-out, z-index 0.8s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.envelope.open .letter-card {
+    transform: translateY(-120px);
+    z-index: 10;
+}
+
+/* Lipatan-Lipatan Amplop */
+.flap {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    pointer-events: none;
+}
+
+.top-flap {
+    top: 0;
+    left: 0;
+    border-width: 110px 160px 0 160px;
+    border-color: #c8b99c transparent transparent transparent;
+    transform-origin: top;
+    transform: rotateX(180deg);
+    transition: transform 0.6s ease-in-out;
+    z-index: 1;
+}
+
+.left-flap {
+    top: 0;
+    left: 0;
+    border-width: 110px 0 110px 160px;
+    border-color: transparent transparent transparent #d4c4a8;
+    z-index: 4;
+}
+
+.right-flap {
+    top: 0;
+    right: 0;
+    border-width: 110px 160px 110px 0;
+    border-color: transparent #d4c4a8 transparent transparent;
+    z-index: 4;
+}
+
+.bottom-flap {
+    bottom: 0;
+    left: 0;
+    border-width: 0 160px 110px 160px;
+    border-color: transparent transparent #cca984 transparent;
+    z-index: 5;
+}
+
+/* --------------------------------------------------
+   2. GALERI FOTO UNIFORM
+-------------------------------------------------- */
+.gallery-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* --------------------------------------------------
+   3. ANIMASI SCROLL REVEAL
+-------------------------------------------------- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.15s; }
+.delay-2 { transition-delay: 0.3s; }
+.delay-3 { transition-delay: 0.45s; }
+
+/* 4. FLOATING MUSIC BUTTON */
+.music-control-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #212529;
+    color: #fff;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.spin {
+    animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}

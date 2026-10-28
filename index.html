@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - Hiccup & Astrid</title>
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+    <!-- 1. COVER OVERLAY UNDANGAN -->
+    <div id="cover-overlay" class="cover-overlay d-flex align-items-center justify-content-center">
+        
+        <!-- Container Kelopak Bunga Jatuh -->
+        <div id="petals-container" class="petals-container"></div>
+
+        <div class="envelope-wrapper text-center">
+            
+            <!-- Area Amplop -->
+            <div class="envelope mx-auto" id="envelope" onclick="openInvitation()">
+                <!-- Lipatan Atas -->
+                <div class="flap top-flap"></div>
+                
+                <!-- Kartu Surat Menonjol Ke Atas -->
+                <div class="letter-card p-3 text-center">
+                    <p class="text-muted small text-uppercase tracking-wider mb-1" style="font-size: 0.65rem;">The Wedding of</p>
+                    <h3 class="font-wedding text-dark mb-1">Hiccup & Astrid</h3>
+                    <hr class="w-25 mx-auto my-1 border-secondary opacity-50">
+                    <p class="small text-muted mb-0" style="font-size: 0.75rem;">Kepada Yth.</p>
+                    <h6 id="guest-name" class="fw-bold text-dark mb-0">Nama Tamu</h6>
+                </div>
+
+                <!-- Lipatan Samping & Bawah -->
+                <div class="flap left-flap"></div>
+                <div class="flap right-flap"></div>
+                <div class="flap bottom-flap"></div>
+            </div>
+
+            <!-- Tombol Buka Undangan -->
+            <button id="btn-open" class="btn btn-outline-light btn-sm rounded-pill px-4 py-2 mt-4 shadow-sm" onclick="openInvitation()">
+                <i class="bi bi-envelope-open me-2"></i> Buka Undangan
+            </button>
+            
+        </div>
+    </div>
+
+    <!-- 2. AUDIO BACKGROUND & FLOATING BUTTON -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="assets/bgmhttyd.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-btn" class="music-control-btn d-none" onclick="toggleMusic()">
+        <i id="music-icon" class="bi bi-music-note-beamed fs-5"></i>
+    </button>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="d-none">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="min-vh-100 d-flex align-items-center justify-content-center text-center bg-dark text-white p-4">
+            <div>
+                <p class="text-uppercase mb-2 reveal">The Wedding of</p>
+                <h1 class="display-2 font-wedding reveal delay-1">Hiccup & Astrid</h1>
+                <p class="lead mt-3 reveal delay-2">01 Januari 2027</p>
+            </div>
+        </section>
+
+        <!-- PASANGAN PENGANTIN -->
+        <section id="couples" class="py-5 text-center container">
+            <h2 class="font-serif fw-bold mb-5 reveal">Mempelai</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-5 reveal delay-1">
+                    <div class="card border-0 shadow-sm h-100 p-3">
+                        <img src="assets/hiccup.jpg" class="card-img-top rounded-circle mx-auto mt-3" style="width: 150px; height: 150px; object-fit: cover;" alt="Pengantin Pria">
+                        <div class="card-body">
+                            <h3 class="font-wedding text-dark">Hiccup Horrendous</h3>
+                            <p class="card-text text-muted small">Putra dari Bapak Stoick & Ibu Valka</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 reveal delay-2">
+                    <div class="card border-0 shadow-sm h-100 p-3">
+                        <img src="assets/astrid.jpg" class="card-img-top rounded-circle mx-auto mt-3" style="width: 150px; height: 150px; object-fit: cover;" alt="Pengantin Wanita">
+                        <div class="card-body">
+                            <h3 class="font-wedding text-dark">Astrid Hofferson</h3>
+                            <p class="card-text text-muted small">Putri dari Bapak A & Ibu B</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DETAIL ACARA & COUNTDOWN -->
+        <section id="events" class="py-5 bg-white text-center">
+            <div class="container">
+                <h2 class="font-serif fw-bold mb-4 reveal">Waktu & Lokasi</h2>
+                
+                <div class="row justify-content-center g-2 mb-5 reveal delay-1">
+                    <div class="col-3 col-md-2">
+                        <div class="p-3 bg-dark text-white rounded shadow-sm">
+                            <span id="days" class="fs-3 fw-bold d-block">00</span>
+                            <small>Hari</small>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-2">
+                        <div class="p-3 bg-dark text-white rounded shadow-sm">
+                            <span id="hours" class="fs-3 fw-bold d-block">00</span>
+                            <small>Jam</small>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-2">
+                        <div class="p-3 bg-dark text-white rounded shadow-sm">
+                            <span id="minutes" class="fs-3 fw-bold d-block">00</span>
+                            <small>Menit</small>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-2">
+                        <div class="p-3 bg-dark text-white rounded shadow-sm">
+                            <span id="seconds" class="fs-3 fw-bold d-block">00</span>
+                            <small>Detik</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-5 reveal delay-1">
+                        <div class="card h-100 shadow-sm border-0 p-3">
+                            <div class="card-body">
+                                <i class="bi bi-heart-fill text-danger fs-1 mb-2"></i>
+                                <h3 class="card-title font-serif">Akad Nikah</h3>
+                                <p class="mb-1"><i class="bi bi-clock me-1"></i>08.00 WIB - Selesai</p>
+                                <p class="text-muted"><i class="bi bi-geo-alt me-1"></i>Gedung Hall A, Surabaya</p>
+                                <a href="https://maps.google.com" target="_blank" class="btn btn-outline-dark btn-sm rounded-pill mt-2">
+                                    <i class="bi bi-map me-1"></i> Buka Google Maps
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 reveal delay-2">
+                        <div class="card h-100 shadow-sm border-0 p-3">
+                            <div class="card-body">
+                                <i class="bi bi-cup-hot-fill text-warning fs-1 mb-2"></i>
+                                <h3 class="card-title font-serif">Resepsi</h3>
+                                <p class="mb-1"><i class="bi bi-clock me-1"></i>11.00 WIB - Selesai</p>
+                                <p class="text-muted"><i class="bi bi-geo-alt me-1"></i>Grand Ballroom, Surabaya</p>
+                                <a href="https://maps.google.com" target="_blank" class="btn btn-outline-dark btn-sm rounded-pill mt-2">
+                                    <i class="bi bi-map me-1"></i> Buka Google Maps
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALERI FOTO -->
+        <section id="gallery" class="py-5 container text-center">
+            <h2 class="font-serif fw-bold mb-4 reveal">Galeri Momen</h2>
+            <div class="row g-3">
+                <div class="col-6 col-md-4 reveal delay-1">
+                    <img src="assets/momen1.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Foto 1">
+                </div>
+                <div class="col-6 col-md-4 reveal delay-2">
+                    <img src="assets/momen2.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Foto 2">
+                </div>
+                <div class="col-6 col-md-4 reveal delay-3">
+                    <img src="assets/momen3.jpg" class="img-fluid rounded shadow-sm gallery-img" alt="Foto 3">
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP FORM -->
+        <section id="rsvp" class="py-5 bg-white">
+            <div class="container" style="max-width: 600px;">
+                <h2 class="font-serif fw-bold text-center mb-4 reveal">Konfirmasi Kehadiran</h2>
+                <form id="rsvp-form" class="card p-4 border-0 shadow-sm reveal delay-1">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Lengkap</label>
+                        <input type="text" id="name" class="form-control" placeholder="Tuliskan nama Anda" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Konfirmasi Kehadiran</label>
+                        <select id="attendance" class="form-select" required>
+                            <option value="" selected disabled>Pilih status kehadiran</option>
+                            <option value="Hadir">Hadir</option>
+                            <option value="Tidak Hadir">Tidak Hadir</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ucapan & Doa</label>
+                        <textarea id="message" class="form-control" rows="3" placeholder="Tuliskan pesan Anda..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100 rounded-pill">
+                        <i class="bi bi-send me-2"></i>Kirim via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JS BUNDLE BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
